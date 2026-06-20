@@ -94,8 +94,8 @@
 
   /* ---------- Hero (minimal, academic-page style) ---------- */
   .hero{padding:104px 0 80px;}
-  .hero-grid{display:grid; grid-template-columns:1.5fr 0.6fr; gap:56px; align-items:center;}
-  @media (max-width:760px){ .hero-grid{grid-template-columns:1fr; gap:32px;} }
+  .hero-grid{display:grid; grid-template-columns:1fr 190px; gap:56px; align-items:center;}
+  @media (max-width:760px){ .hero-grid{grid-template-columns:1fr; gap:28px;} }
 
   .hero-name{
     font-size:clamp(2.4rem, 5.5vw, 3.4rem);
@@ -122,10 +122,10 @@
   .contact-row .sep{color:var(--border-strong);}
 
   .hero-photo{
-    width:100%; max-width:260px; aspect-ratio:3/3.85; object-fit:cover;
-    border-radius:10px; display:block; margin:0 auto;
+    width:100%; max-width:190px; aspect-ratio:3/3.85; object-fit:cover;
+    border-radius:6px; display:block; margin:0 auto; justify-self:end;
   }
-  @media (max-width:760px){ .hero-photo{max-width:200px;} }
+  @media (max-width:760px){ .hero-photo{max-width:150px; justify-self:center;} }
 
   /* ---------- Strengths (report rows) ---------- */
   .report-row{
