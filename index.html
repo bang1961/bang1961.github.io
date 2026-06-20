@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>방성호 — AI Research Developer</title>
+<meta name="description" content="음성인식(STT)과 의료 영상 AI를 연구하고 서비스로 서빙하는 AI 엔지니어 방성호의 포트폴리오">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #ECF1F1;
+    --bg-grid: #DCE6E6;
+    --surface: #FFFFFF;
+    --ink: #11202B;
+    --ink-soft: #4A5D63;
+    --ink-faint: #7C8C90;
+    --accent: #C0392B;
+    --accent-soft: rgba(192,57,43,0.08);
+    --teal: #2C6B68;
+    --teal-soft: rgba(44,107,104,0.09);
+    --border: #CFDADA;
+    --border-strong: #B7C5C5;
+    --radius: 6px;
+    --font-display: 'Space Grotesk', 'IBM Plex Sans KR', sans-serif;
+    --font-body: 'IBM Plex Sans KR', sans-serif;
+    --font-mono: 'IBM Plex Mono', monospace;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:
+      linear-gradient(var(--bg-grid) 1px, transparent 1px) 0 0/100% 36px,
+      linear-gradient(90deg, var(--bg-grid) 1px, transparent 1px) 0 0/36px 100%,
+      var(--bg);
+    background-attachment: fixed;
+    color:var(--ink);
+    font-family:var(--font-body);
+    line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+  }
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important;}
+  }
+
+  a{color:var(--accent); text-decoration:none;}
+  a:hover{text-decoration:underline;}
+  :focus-visible{outline:2px solid var(--accent); outline-offset:3px; border-radius:2px;}
+
+  .wrap{max-width:980px; margin:0 auto; padding:0 28px;}
+
+  /* ---------- Nav ---------- */
+  .nav{
+    position:sticky; top:0; z-index:50;
+    background:rgba(236,241,241,0.92);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--border);
+  }
+  .nav-inner{
+    max-width:980px; margin:0 auto; padding:14px 28px;
+    display:flex; align-items:center; justify-content:space-between;
+    font-family:var(--font-mono); font-size:0.78rem;
+  }
+  .nav-id{color:var(--ink); font-weight:500; letter-spacing:0.02em;}
+  .nav-id span{color:var(--accent);}
+  .nav-links{display:flex; gap:22px; flex-wrap:wrap;}
+  .nav-links a{color:var(--ink-soft);}
+  .nav-links a:hover{color:var(--accent); text-decoration:none;}
+  @media (max-width:640px){ .nav-links{display:none;} }
+
+  /* ---------- Eyebrow / labels ---------- */
+  .eyebrow{
+    font-family:var(--font-mono); font-size:0.74rem; letter-spacing:0.12em;
+    text-transform:uppercase; color:var(--accent); display:flex; align-items:center; gap:8px;
+  }
+  .eyebrow::before{content:''; width:7px; height:7px; border-radius:50%; background:var(--accent); display:inline-block; flex:none;}
+  .field-tag{
+    font-family:var(--font-mono); font-size:0.68rem; letter-spacing:0.08em; text-transform:uppercase;
+    color:var(--ink-faint); border:1px solid var(--border-strong); border-radius:3px; padding:2px 7px;
+    display:inline-block;
+  }
+
+  h1,h2,h3{font-family:var(--font-display); font-weight:600; margin:0; letter-spacing:-0.01em;}
+
+  section{padding:84px 0;}
+  section + section{border-top:1px solid var(--border);}
+  .section-head{margin-bottom:40px;}
+  .section-head h2{font-size:1.7rem; margin-top:10px;}
+  .section-head .num{font-family:var(--font-mono); color:var(--ink-faint); font-size:0.8rem;}
+
+  /* ---------- Hero ---------- */
+  .hero{padding:96px 0 64px;}
+  .hero-grid{display:grid; grid-template-columns:1.4fr 0.7fr; gap:48px; align-items:center;}
+  @media (max-width:760px){ .hero-grid{grid-template-columns:1fr; gap:32px;} }
+
+  .hero h1{
+    font-size:clamp(2.1rem, 4.6vw, 3.15rem);
+    line-height:1.18; margin-top:18px; color:var(--ink);
+  }
+  .hero h1 em{
+    font-style:normal; color:var(--accent); position:relative;
+  }
+  .hero-sub{
+    margin-top:20px; font-size:1.05rem; color:var(--ink-soft); max-width:46ch;
+  }
+
+  .avatar-frame{
+    border:1px solid var(--border-strong); border-radius:var(--radius);
+    background:var(--surface); padding:14px; position:relative;
+  }
+  .avatar-frame img{display:block; width:100%; border-radius:3px;}
+  .avatar-frame .cap{
+    margin-top:10px; font-family:var(--font-mono); font-size:0.66rem; color:var(--ink-faint);
+    display:flex; justify-content:space-between; letter-spacing:0.04em;
+  }
+
+  .waveform{width:100%; height:auto; display:block; margin-top:36px;}
+  .waveform path{
+    fill:none; stroke:var(--accent); stroke-width:2; stroke-linecap:round;
+    stroke-dasharray:1200; stroke-dashoffset:1200;
+    animation:draw 1.8s ease forwards 0.2s;
+  }
+  @keyframes draw{ to{ stroke-dashoffset:0; } }
+
+  .vitals{
+    display:flex; gap:0; margin-top:34px; border:1px solid var(--border-strong);
+    border-radius:var(--radius); overflow:hidden; background:var(--surface);
+  }
+  .vitals div{
+    flex:1; padding:14px 16px; border-right:1px solid var(--border);
+  }
+  .vitals div:last-child{border-right:none;}
+  .vitals .v-num{
+    font-family:var(--font-mono); font-size:1.3rem; color:var(--accent); font-weight:500;
+  }
+  .vitals .v-label{
+    font-family:var(--font-mono); font-size:0.66rem; color:var(--ink-faint); letter-spacing:0.05em; margin-top:3px;
+  }
+  @media (max-width:640px){
+    .vitals{flex-direction:column;}
+    .vitals div{border-right:none; border-bottom:1px solid var(--border);}
+    .vitals div:last-child{border-bottom:none;}
+  }
+
+  .links-row{display:flex; gap:14px; margin-top:28px; flex-wrap:wrap; font-family:var(--font-mono); font-size:0.84rem;}
+  .links-row a{
+    border:1px solid var(--border-strong); border-radius:4px; padding:8px 14px;
+    color:var(--ink); background:var(--surface);
+  }
+  .links-row a:hover{border-color:var(--accent); color:var(--accent); text-decoration:none;}
+  .links-row a.primary{background:var(--ink); color:var(--bg); border-color:var(--ink);}
+  .links-row a.primary:hover{background:var(--accent); border-color:var(--accent); color:#fff;}
+
+  /* ---------- Strengths (report rows) ---------- */
+  .report-row{
+    display:grid; grid-template-columns:140px 1fr; gap:24px;
+    padding:22px 0; border-top:1px solid var(--border);
+  }
+  .report-row:first-of-type{border-top:1px solid var(--border-strong);}
+  .report-row .rr-field{font-family:var(--font-mono); font-size:0.72rem; color:var(--ink-faint); letter-spacing:0.08em; text-transform:uppercase; padding-top:2px;}
+  .report-row .rr-title{font-family:var(--font-display); font-weight:600; font-size:1.05rem; margin-bottom:6px;}
+  .report-row p{margin:0; color:var(--ink-soft); font-size:0.95rem;}
+  @media (max-width:640px){ .report-row{grid-template-columns:1fr; gap:6px;} }
+
+  /* ---------- Case studies ---------- */
+  .case{
+    border:1px solid var(--border-strong); border-radius:var(--radius);
+    background:var(--surface); padding:32px; margin-bottom:28px;
+  }
+  .case-head{display:flex; justify-content:space-between; align-items:flex-start; gap:16px; flex-wrap:wrap;}
+  .case-head h3{font-size:1.28rem; max-width:32ch;}
+  .case-meta{font-family:var(--font-mono); font-size:0.7rem; color:var(--ink-faint); text-align:right; white-space:nowrap;}
+  .case-divider{height:1px; background:var(--border); margin:20px 0;}
+  .case-fields{display:grid; grid-template-columns:90px 1fr; gap:10px 20px; font-size:0.93rem;}
+  .case-fields dt{font-family:var(--font-mono); font-size:0.7rem; color:var(--accent); letter-spacing:0.06em; text-transform:uppercase; padding-top:3px;}
+  .case-fields dd{margin:0; color:var(--ink-soft);}
+  .case-metrics{
+    margin-top:18px; display:flex; gap:10px; flex-wrap:wrap;
+  }
+  .case-metrics span{
+    font-family:var(--font-mono); font-size:0.74rem; background:var(--accent-soft); color:var(--accent);
+    border:1px solid rgba(192,57,43,0.25); border-radius:3px; padding:4px 9px;
+  }
+  .case-stack{margin-top:14px; display:flex; gap:7px; flex-wrap:wrap;}
+  @media (max-width:640px){ .case-fields{grid-template-columns:1fr;} .case-fields dt{margin-top:8px;} }
+
+  /* ---------- Project log table ---------- */
+  .log-table{width:100%; border-collapse:collapse; font-size:0.9rem;}
+  .log-table th{
+    font-family:var(--font-mono); font-size:0.68rem; text-transform:uppercase; letter-spacing:0.06em;
+    color:var(--ink-faint); text-align:left; padding:0 14px 10px 0; border-bottom:1px solid var(--border-strong);
+  }
+  .log-table td{
+    padding:14px 14px 14px 0; border-bottom:1px solid var(--border); vertical-align:top; color:var(--ink-soft);
+  }
+  .log-table td.t-name{color:var(--ink); font-weight:500;}
+  .log-table tr:last-child td{border-bottom:none;}
+  .log-table .tag-list{display:flex; gap:5px; flex-wrap:wrap;}
+  .log-table .tag-list span{font-family:var(--font-mono); font-size:0.68rem; color:var(--teal); background:var(--teal-soft); border-radius:3px; padding:2px 6px;}
+  .table-scroll{overflow-x:auto;}
+  @media (max-width:760px){
+    .log-table thead{display:none;}
+    .log-table tr{display:block; border-bottom:1px solid var(--border-strong); padding:16px 0;}
+    .log-table td{display:block; padding:3px 0; border-bottom:none;}
+    .log-table td.t-name{font-family:var(--font-display); font-size:1rem;}
+  }
+
+  /* ---------- Career timeline ---------- */
+  .timeline{position:relative; padding-left:28px;}
+  .timeline::before{
+    content:''; position:absolute; left:5px; top:6px; bottom:6px; width:1.5px; background:var(--border-strong);
+  }
+  .tl-item{position:relative; padding-bottom:38px;}
+  .tl-item:last-child{padding-bottom:0;}
+  .tl-item::before{
+    content:''; position:absolute; left:-28px; top:5px; width:11px; height:11px; border-radius:50%;
+    background:var(--surface); border:2px solid var(--accent);
+  }
+  .tl-item.current::before{background:var(--accent);}
+  .tl-head{display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px; align-items:baseline;}
+  .tl-head h3{font-size:1.08rem;}
+  .tl-date{font-family:var(--font-mono); font-size:0.74rem; color:var(--ink-faint); white-space:nowrap;}
+  .tl-role{font-family:var(--font-mono); font-size:0.76rem; color:var(--accent); margin-top:4px;}
+  .tl-item p{margin:10px 0 0; color:var(--ink-soft); font-size:0.93rem; max-width:62ch;}
+  .tl-badge{
+    display:inline-block; margin-left:8px; font-family:var(--font-mono); font-size:0.62rem;
+    color:var(--accent); border:1px solid var(--accent); border-radius:3px; padding:1px 6px; letter-spacing:0.05em;
+  }
+
+  /* ---------- Stack ---------- */
+  .stack-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:28px;}
+  @media (max-width:640px){ .stack-grid{grid-template-columns:1fr;} }
+  .stack-group{border-top:1px solid var(--border-strong); padding-top:14px;}
+  .stack-group h3{font-family:var(--font-mono); font-size:0.76rem; letter-spacing:0.06em; text-transform:uppercase; color:var(--ink-faint); font-weight:500; margin-bottom:12px;}
+  .chip-row{display:flex; gap:8px; flex-wrap:wrap;}
+  .chip{
+    font-family:var(--font-mono); font-size:0.78rem; color:var(--ink);
+    background:var(--surface); border:1px solid var(--border-strong); border-radius:4px; padding:5px 10px;
+  }
+
+  /* ---------- Credentials ---------- */
+  .cred-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:36px;}
+  @media (max-width:760px){ .cred-grid{grid-template-columns:1fr;} }
+  .cred-col h3{font-family:var(--font-mono); font-size:0.72rem; letter-spacing:0.06em; text-transform:uppercase; color:var(--ink-faint); margin-bottom:14px;}
+  .cred-col ul{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:12px;}
+  .cred-col li{font-size:0.92rem; color:var(--ink-soft); border-top:1px solid var(--border); padding-top:10px;}
+  .cred-col li:first-child{border-top:none; padding-top:0;}
+  .cred-col li b{color:var(--ink); display:block; font-weight:500; font-size:0.95rem; margin-bottom:2px;}
+  .cred-col li .muted{font-family:var(--font-mono); font-size:0.74rem; color:var(--ink-faint);}
+
+  /* ---------- Footer ---------- */
+  footer{padding:64px 0 56px;}
+  .footer-grid{display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:24px;}
+  .footer-cta h2{font-size:1.5rem;}
+  .footer-cta p{color:var(--ink-soft); margin-top:10px; max-width:42ch;}
+  .footer-links{display:flex; flex-direction:column; gap:8px; font-family:var(--font-mono); font-size:0.86rem; align-items:flex-end;}
+  @media (max-width:640px){ .footer-links{align-items:flex-start;} }
+  .footer-bottom{
+    margin-top:48px; padding-top:20px; border-top:1px solid var(--border);
+    font-family:var(--font-mono); font-size:0.7rem; color:var(--ink-faint);
+    display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px;
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="nav-id">BANG<span>·</span>SUNGHO</div>
+    <div class="nav-links">
+      <a href="#strengths">역량</a>
+      <a href="#projects">프로젝트</a>
+      <a href="#career">경력</a>
+      <a href="#stack">스택</a>
+      <a href="#credentials">학력·자격</a>
+      <a href="#contact">연락처</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ===================== HERO ===================== -->
+<header class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="eyebrow">VISION · NLP · SPEECH</div>
+      <h1>비전부터 음성까지,<br>다양한 데이터를 <em>모델</em>로<br>풀어왔습니다</h1>
+      <p class="hero-sub">
+        데이터를 이해하고, 모델을 학습시켜 안정적으로 서빙하는 일을 해온 AI 엔지니어
+        방성호입니다. 의료 영상(Vision), 의료 LLM·NLP, 음성인식(Speech)까지 — 데이터의
+        형태와 관계없이 동일한 방법론으로 모델을 설계하고 서비스로 만들어왔습니다.
+      </p>
+
+      <svg class="waveform" viewBox="0 0 600 60" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M0,30 L30,30 L40,10 L50,50 L60,18 L70,42 L80,30 L110,30 L120,6 L128,54 L136,22 L144,38 L152,30 L180,30 L190,14 L200,46 L210,30 L240,30 L250,4 L258,56 L266,20 L274,40 L282,30 L310,30 L320,16 L330,44 L340,30 L370,30 L380,8 L388,52 L396,24 L404,36 L412,30 L440,30 L450,12 L460,48 L470,30 L500,30 L510,2 L518,58 L526,18 L534,42 L542,30 L600,30"/>
+      </svg>
+
+      <div class="vitals">
+        <div><div class="v-num">5년 2개월</div><div class="v-label">실무 경력</div></div>
+        <div><div class="v-num">3개 영역</div><div class="v-label">Vision · NLP · Speech</div></div>
+        <div><div class="v-num">12+</div><div class="v-label">AI 프로젝트 수행</div></div>
+        <div><div class="v-num">5종</div><div class="v-label">보유 자격증</div></div>
+      </div>
+
+      <div class="links-row">
+        <a class="primary" href="mailto:qkdtjdgh1961@gmail.com">이메일 보내기</a>
+        <a href="https://bangcode.tistory.com/" target="_blank" rel="noopener">기술 블로그</a>
+        <a href="https://www.notion.so/Bang-s-Portfolio-1f8a389221a4803e918cd06d25550fcd" target="_blank" rel="noopener">상세 포트폴리오 (Notion)</a>
+      </div>
+    </div>
+
+    <div class="avatar-frame">
+      <img src="assets/avatar.png" alt="방성호 캐릭터 아바타 일러스트">
+      <div class="cap"><span>BANG SUNGHO</span><span>AI RESEARCH DEV.</span></div>
+    </div>
+  </div>
+</header>
+
+<!-- ===================== STRENGTHS ===================== -->
+<section id="strengths">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Core Competency</div>
+      <h2>핵심 역량</h2>
+      <p style="margin-top:14px; color:var(--ink-soft); max-width:60ch; font-size:0.96rem;">
+        Vision(의료 영상), NLP·LLM(의료 판독문 해석), Speech(음성인식)까지 — AI 엔지니어가
+        다룰 수 있는 영역은 넓습니다. 어떤 형태의 데이터든 문제 정의 → 데이터 파이프라인 →
+        모델 학습/파인튜닝 → 평가 → 서빙으로 이어지는 동일한 접근 방식으로 풀어왔습니다.
+      </p>
+    </div>
+
+    <div class="report-row">
+      <div class="rr-field">AI<br>Coverage</div>
+      <div>
+        <div class="rr-title">Vision·NLP·Speech를 모두 다루는 폭넓은 역량</div>
+        <p>이미지 세그멘테이션·분류(YOLO, U-Net, EfficientNet), LLM 기반 질의응답·RAG, 음성인식
+        VAD·STT까지 — 세 영역 모두에서 모델을 직접 설계하고 서비스로 만든 경험이 있습니다.
+        새로운 영역이라도 데이터를 파악하고 빠르게 성과를 내는 데 강점이 있습니다.</p>
+      </div>
+    </div>
+      <div class="rr-field">Domain<br>Model</div>
+      <div>
+        <div class="rr-title">도메인 특화 LLM · ASR 모델 개발</div>
+        <p>LLaMA, GPT 등 오픈소스 모델을 LoRA 기반으로 경량화하고 instruction tuning으로 도메인 특화 모델을 구축했습니다. 의료 판독문 해석, 다국어 질의응답, 음성인식 성능 개선까지 모델 설계부터 검증을 직접 주도했습니다.</p>
+      </div>
+    </div>
+    <div class="report-row">
+      <div class="rr-field">Data<br>Pipeline</div>
+      <div>
+        <div class="rr-title">데이터 파이프라인 구축 및 전처리 자동화</div>
+        <p>의료 영상·음성 데이터셋을 대상으로 대규모 전처리 및 학습용 데이터 구성 파이프라인을 구축했습니다. 3D 마스크 생성, HU 필터링, Watershed, 저에너지 구간 분석 등 데이터 품질 중심의 처리 자동화 경험을 보유하고 있습니다.</p>
+      </div>
+    </div>
+    <div class="report-row">
+      <div class="rr-field">Eval &<br>Analysis</div>
+      <div>
+        <div class="rr-title">실험 설계, 평가 자동화 및 성능 분석</div>
+        <p>WER/CER, 모델 비교, 문장 단위 성능 차이 등 정량 분석 체계를 직접 설계했습니다. TSV/XLSX 기반 비교 리포트와 표준화된 실험 산출물 관리로 재현성과 반복 실험 효율을 높였습니다.</p>
+      </div>
+    </div>
+    <div class="report-row">
+      <div class="rr-field">Serving &<br>Ops</div>
+      <div>
+        <div class="rr-title">실시간 AI 서빙 구조 구현 및 운영 안정화</div>
+        <p>gRPC streaming, WebSocket, REST API, multiprocessing 기반 구조를 설계해 실서비스 지향 시스템을 구축했습니다. Docker/Compose, Nginx, HTTPS 기반 배포 환경을 구성하고 운영 단계 이슈를 직접 해결했습니다.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== FEATURED PROJECTS ===================== -->
+<section id="projects">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Case Studies</div>
+      <h2>대표 프로젝트</h2>
+      <p style="margin-top:14px; color:var(--ink-soft); max-width:60ch; font-size:0.96rem;">
+        아래 4건은 Vision(의료 영상), NLP·LLM, Speech 세 영역에 걸쳐 있습니다. 영역은
+        다르지만 모두 같은 순서로 풀었습니다: 문제 정의 → 모델/데이터 접근 → 정량적 결과.
+      </p>
+    </div>
+
+    <!-- Case 1 -->
+    <article class="case">
+      <div class="case-head">
+        <h3>갑상선암 보조진단 AI 서비스</h3>
+        <div class="case-meta">MEDICAL CV · 2021–2022<br>팀 3~4명 · 모델 개발 담당</div>
+      </div>
+      <div class="case-divider"></div>
+      <dl class="case-fields">
+        <dt>문제</dt>
+        <dd>초음파 영상에서 결절을 놓치거나 양성·악성 특징을 판별하는 데 의사의 숙련도 의존도가 높았습니다.</dd>
+        <dt>접근</dt>
+        <dd>YOLOv5 기반 결절 세그멘테이션과 EfficientNet 분류 모델 4종을 학습·비교하고, 의사 피드백을 반영한 재학습 루프를 구현했습니다. Auto Train Data Loader와 Django REST API 기반 웹 진단 UI를 구축했습니다.</dd>
+        <dt>결과</dt>
+        <dd>AUC 89.3%, 정량적 일치율 84%를 달성했습니다. 클래스 불균형으로 인한 오버피팅은 클래스별 가중치 조정으로 완화했습니다.</dd>
+      </dl>
+      <div class="case-metrics"><span>AUC 89.3%</span><span>일치율 84%</span></div>
+      <div class="case-stack">
+        <span class="field-tag">PyTorch</span><span class="field-tag">YOLOv5</span><span class="field-tag">EfficientNet</span><span class="field-tag">Django</span><span class="field-tag">REST API</span>
+      </div>
+    </article>
+
+    <!-- Case 2 -->
+    <article class="case">
+      <div class="case-head">
+        <h3>Radiology GPT — 다국어 판독문 해석 및 질의응답</h3>
+        <div class="case-meta">MULTILINGUAL LLM · 2023–2025<br>1인 개발</div>
+      </div>
+      <div class="case-divider"></div>
+      <dl class="case-fields">
+        <dt>문제</dt>
+        <dd>한국어·영어·인도네시아어로 작성된 방사선 판독문은 비전문가가 이해하기 어렵고, 질의응답이 불가능했습니다.</dd>
+        <dt>접근</dt>
+        <dd>GPT-4로 MIMIC 판독문 기반 Q&A 데이터를 생성하고, LLaMA를 언어별로 LoRA(8bit) 파인튜닝했습니다. 보고서의 핵심 임상 정보를 엔티티-관계 단위로 구조화해 답변이 근거 문장과 매핑되도록 설계했습니다.</dd>
+        <dt>결과</dt>
+        <dd>응답 일관성 89.5%, 사용자 이해도 4.3/5를 확보했습니다. 번역 손실·코드스위칭은 프롬프트 규칙 강화와 용어 정규화로 완화했습니다.</dd>
+      </dl>
+      <div class="case-metrics"><span>응답 일관성 89.5%</span><span>이해도 4.3/5</span></div>
+      <div class="case-stack">
+        <span class="field-tag">LLaMA 3.2</span><span class="field-tag">LoRA</span><span class="field-tag">GPT-4</span><span class="field-tag">RadGraph</span><span class="field-tag">Flask</span>
+      </div>
+    </article>
+
+    <!-- Case 3 -->
+    <article class="case">
+      <div class="case-head">
+        <h3>실시간 STT 서빙 고도화 & VAD 벤치마크</h3>
+        <div class="case-meta">SPEECH AI · 2025–현재<br>1인 개발</div>
+      </div>
+      <div class="case-divider"></div>
+      <dl class="case-fields">
+        <dt>문제</dt>
+        <dd>8k 콜센터 환경에서 VAD 품질이 떨어지면 발화 누락과 환청성 텍스트(오탐)가 늘고, 실시간 서빙 구조가 불안정해졌습니다.</dd>
+        <dt>접근</dt>
+        <dd>WebRTC·pyannote·SpeechBrain VAD를 동일 ASR(ESPNet ha8k) 조건에서 비교(WER/CER, 세그 길이, 에너지 분포 분석)하고, asyncio 없는 multiprocess-only gRPC 서버로 재구성했습니다. 웹 마이크 기반 E2E 테스트 환경을 구축해 콜봇 연동까지 검증했습니다.</dd>
+        <dt>결과</dt>
+        <dd>pyannote+ESPNet 조합이 가장 우수했고, 저에너지 구간 제거로 오탐을 줄였습니다. 검증된 VAD·STT 구성과 파라미터를 실제 서비스에 적용했습니다.</dd>
+      </dl>
+      <div class="case-metrics"><span>WER/CER 정량 비교</span><span>오탐 감소</span></div>
+      <div class="case-stack">
+        <span class="field-tag">gRPC</span><span class="field-tag">ESPNet</span><span class="field-tag">WebRTC/pyannote/SpeechBrain VAD</span><span class="field-tag">Docker</span>
+      </div>
+    </article>
+
+    <!-- Case 4 -->
+    <article class="case">
+      <div class="case-head">
+        <h3>실시간 판독문 오타 교정 시스템</h3>
+        <div class="case-meta">NLP PRODUCT · 2023–2025<br>1인 개발</div>
+      </div>
+      <div class="case-divider"></div>
+      <dl class="case-fields">
+        <dt>문제</dt>
+        <dd>의료 보고서 작성 중 발생하는 오타가 판독 품질과 작성 속도에 영향을 주고 있었습니다.</dd>
+        <dt>접근</dt>
+        <dd>KoSymSpell/SymSpell과 LLM 기반 교정 제안을 결합해, Flask와 JavaScript로 입력 중인 단어를 실시간 분석하고 추천 팝업을 제공하는 모듈을 구현했습니다.</dd>
+        <dt>결과</dt>
+        <dd>교정 정확도 F1 84.5%를 기록했고, 작성 시간을 약 18% 단축했습니다. 짧은 단어의 과교정 문제는 편집거리 제어로 해결했습니다.</dd>
+      </dl>
+      <div class="case-metrics"><span>F1 84.5%</span><span>작성시간 18% 단축</span></div>
+      <div class="case-stack">
+        <span class="field-tag">Flask</span><span class="field-tag">LLM</span><span class="field-tag">SymSpell</span><span class="field-tag">JavaScript</span>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- ===================== PROJECT LOG ===================== -->
+<section id="project-log">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Project Log</div>
+      <h2>그 외 수행 프로젝트</h2>
+    </div>
+
+    <div class="table-scroll">
+      <table class="log-table">
+        <thead>
+          <tr><th>프로젝트</th><th>설명</th><th>스택</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="t-name">WSI 세포 분할 모델</td>
+            <td>병리 슬라이드 이미지에서 비정상 세포를 픽셀 단위로 분할 (IoU 81.2%, 팀 3명)</td>
+            <td><div class="tag-list"><span>U-Net</span><span>GAN</span><span>OpenSlide</span></div></td>
+          </tr>
+          <tr>
+            <td class="t-name">흉부 CT 결절 분할 (LIDC-IDRI)</td>
+            <td>DICOM+XML 기반 3D 마스크 생성 자동화, Watershed·HU 필터링 적용</td>
+            <td><div class="tag-list"><span>PyTorch</span><span>SimpleITK</span><span>ResUNet</span></div></td>
+          </tr>
+          <tr>
+            <td class="t-name">심비대(CTR) 측정 시스템</td>
+            <td>Chest X-ray에서 Lung/Heart 세그멘테이션 후 CTR 자동 계산 (정확도 10%+ 향상)</td>
+            <td><div class="tag-list"><span>PyTorch</span><span>DICOM</span></div></td>
+          </tr>
+          <tr>
+            <td class="t-name">SmartManual</td>
+            <td>RAG 기반 도메인 특화 매뉴얼 챗봇 서비스</td>
+            <td><div class="tag-list"><span>RAG</span><span>Vector DB</span></div></td>
+          </tr>
+          <tr>
+            <td class="t-name">ESPNet(ha8k) 도메인 파인튜닝</td>
+            <td>GT 데이터셋 기반 파인튜닝, 세그먼트 단위 정렬 품질이 성능 상한 요인임을 도출</td>
+            <td><div class="tag-list"><span>PyTorch</span><span>ESPNet</span></div></td>
+          </tr>
+          <tr>
+            <td class="t-name">한국어 8k 콜센터 STT VAD 벤치마크</td>
+            <td>VAD 종류별 세그먼트 품질이 ASR 결과에 미치는 영향 정량화</td>
+            <td><div class="tag-list"><span>WebRTC</span><span>pyannote</span></div></td>
+          </tr>
+          <tr>
+            <td class="t-name">AI 기반 웹래퍼 앱 (ReadingRoom)</td>
+            <td>WebView 앱 래퍼 + AI 자동화 + 팀 협업·푸시 알림, Google Play 출시</td>
+            <td><div class="tag-list"><span>Django/DRF</span><span>Capacitor</span><span>Docker</span></div></td>
+          </tr>
+          <tr>
+            <td class="t-name">자율주행 3D 세그멘테이션</td>
+            <td>Point Cloud 전처리·학습·후처리 로직 구현</td>
+            <td><div class="tag-list"><span>3D</span><span>Point Cloud</span></div></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== CAREER ===================== -->
+<section id="career">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Career — 총 5년 2개월</div>
+      <h2>경력</h2>
+      <p style="margin-top:14px; color:var(--ink-soft); max-width:60ch; font-size:0.96rem;">
+        Vision(의료 영상)부터 Speech(음성인식)까지, 여러 AI 영역에서 모델 개발과 서빙
+        경험을 쌓아왔습니다.
+      </p>
+    </div>
+
+    <div class="timeline">
+      <div class="tl-item current">
+        <div class="tl-head">
+          <h3>이아이씨엔 <span class="tl-badge">CURRENT</span></h3>
+          <div class="tl-date">2025.12 — 현재</div>
+        </div>
+        <div class="tl-role">솔루션개발팀 대리 · <span class="field-tag" style="border-color:var(--accent); color:var(--accent);">SPEECH AI</span></div>
+        <p>음성 프레임 리서치 및 STT 모델링·서빙. VAD·STT 모델 조합별 성능을 비교 검증하고, 도메인 데이터로 미세조정하며 추론 파라미터를 최적화해 실제 서비스에 적용.</p>
+      </div>
+      <div class="tl-item">
+        <div class="tl-head">
+          <h3>헬스허브</h3>
+          <div class="tl-date">2023.09 — 2025.12 · 2년 4개월</div>
+        </div>
+        <div class="tl-role">AIRD 연구원 · <span class="field-tag">MEDICAL AI · LLM</span></div>
+        <p>Radiology GPT, Smart Manual, 실시간 오타 교정, 심비대(CTR) 측정 시스템 개발. Docker 기반 서비스 서버 구축 및 운영 총괄.</p>
+      </div>
+      <div class="tl-item">
+        <div class="tl-head">
+          <h3>몰팩바이오</h3>
+          <div class="tl-date">2023.03 — 2023.08 · 6개월</div>
+        </div>
+        <div class="tl-role">개발 연구원 · <span class="field-tag">MEDICAL AI</span></div>
+        <p>WSI(Whole Slide Image) 세그멘테이션 및 GAN 기반 데이터 증강 연구. GMP 소프트웨어 문서 작성.</p>
+      </div>
+      <div class="tl-item">
+        <div class="tl-head">
+          <h3>엘티포</h3>
+          <div class="tl-date">2021.03 — 2022.12 · 1년 10개월</div>
+        </div>
+        <div class="tl-role">개발부 대리 · <span class="field-tag">MEDICAL AI</span></div>
+        <p>갑상선암 진단 AI(결절 세그멘테이션 + 병리 특성 분류) 개발. 자율주행용 3D 포인트클라우드 세그멘테이션 모델 개발. GMP 문서·테스트 케이스 작성.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== STACK ===================== -->
+<section id="stack">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Tech Stack</div>
+      <h2>기술 스택</h2>
+    </div>
+
+    <div class="stack-grid">
+      <div class="stack-group">
+        <h3>AI / ML</h3>
+        <div class="chip-row">
+          <span class="chip">LLaMA</span><span class="chip">BERT</span><span class="chip">GPT</span><span class="chip">YOLO</span>
+          <span class="chip">U-Net 계열</span><span class="chip">Transformer</span><span class="chip">LoRA / QLoRA / PEFT</span>
+          <span class="chip">Mixed Precision (FP16/BF16)</span><span class="chip">Multi-GPU</span>
+        </div>
+      </div>
+      <div class="stack-group">
+        <h3>Speech AI</h3>
+        <div class="chip-row">
+          <span class="chip">ESPNet (ha8k)</span><span class="chip">pyannote.audio</span><span class="chip">WebRTC VAD</span>
+          <span class="chip">SpeechBrain VAD</span><span class="chip">VAD/STT 파라미터 최적화</span>
+        </div>
+      </div>
+      <div class="stack-group">
+        <h3>NLP</h3>
+        <div class="chip-row">
+          <span class="chip">RAG</span><span class="chip">Prompt Engineering</span><span class="chip">Instruction Tuning</span>
+          <span class="chip">다국어 처리</span><span class="chip">WER / CER 평가</span>
+        </div>
+      </div>
+      <div class="stack-group">
+        <h3>Backend / Infra</h3>
+        <div class="chip-row">
+          <span class="chip">Django</span><span class="chip">Flask</span><span class="chip">FastAPI</span><span class="chip">Gradio</span>
+          <span class="chip">REST / Streaming API</span><span class="chip">gRPC</span><span class="chip">WebSocket</span>
+          <span class="chip">Docker / Compose</span><span class="chip">Nginx</span><span class="chip">Ubuntu</span><span class="chip">CUDA</span>
+        </div>
+      </div>
+      <div class="stack-group">
+        <h3>Data</h3>
+        <div class="chip-row">
+          <span class="chip">PostgreSQL</span><span class="chip">MongoDB</span><span class="chip">SQLite</span><span class="chip">Pandas</span><span class="chip">OpenCV</span>
+        </div>
+      </div>
+      <div class="stack-group">
+        <h3>Languages</h3>
+        <div class="chip-row">
+          <span class="chip">Python</span><span class="chip">JavaScript</span><span class="chip">SQL</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== CREDENTIALS ===================== -->
+<section id="credentials">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Credentials</div>
+      <h2>학력 · 자격증 · 수상</h2>
+    </div>
+
+    <div class="cred-grid">
+      <div class="cred-col">
+        <h3>Education</h3>
+        <ul>
+          <li><b>국민대학교 경영대학원 (석사)</b>AI빅데이터학과 · 2023.08–2025.02 · 졸업<br><span class="muted">학점 3.64 / 4.5</span></li>
+          <li><b>가톨릭관동대학교 (학사)</b>소프트웨어학과 · 2015.03–2021.02 · 졸업<br><span class="muted">학점 2.90 / 4.5</span></li>
+        </ul>
+      </div>
+      <div class="cred-col">
+        <h3>Certifications</h3>
+        <ul>
+          <li><b>데이터분석 준전문가 (ADsP)</b><span class="muted">한국데이터산업진흥원 · 2024.09</span></li>
+          <li><b>정보처리기사</b><span class="muted">한국산업인력공단 · 2020.11</span></li>
+          <li><b>경영 빅데이터 분석사 2급</b><span class="muted">kmic 직무교육 · 2019.10</span></li>
+          <li><b>UiPath RPA 2급</b><span class="muted">UiPath Academy · 2019.07</span></li>
+          <li><b>리눅스마스터 2급</b><span class="muted">한국정보통신진흥협회</span></li>
+        </ul>
+      </div>
+      <div class="cred-col">
+        <h3>Award</h3>
+        <ul>
+          <li><b>창의적 설계 경진대회 — 최우수상(1등)</b>도난 방지 지문 인식 시스템 설계<br><span class="muted">가톨릭관동대학교</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== FOOTER / CONTACT ===================== -->
+<footer id="contact">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-cta">
+        <div class="eyebrow">Contact</div>
+        <h2>함께 일하고 싶으시다면</h2>
+        <p>특정 도메인에 한정하지 않고, 데이터를 모델로 연결하고 안정적인 서비스로 만드는
+        AI 엔지니어 포지션을 찾고 있습니다. Vision, NLP, Speech 등 AI 전반을 다룰 수
+        있습니다.</p>
+      </div>
+      <div class="footer-links">
+        <a href="mailto:qkdtjdgh1961@gmail.com">qkdtjdgh1961@gmail.com</a>
+        <a href="https://bangcode.tistory.com/" target="_blank" rel="noopener">bangcode.tistory.com</a>
+        <a href="https://www.notion.so/Bang-s-Portfolio-1f8a389221a4803e918cd06d25550fcd" target="_blank" rel="noopener">Notion 포트폴리오</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Bang Sungho</span>
+      <span>Seoul, South Korea</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
